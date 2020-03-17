@@ -83,7 +83,7 @@ Perhaps in the future I'll add a terse guide to org mode features particularly r
 ## Important considerations
 
 * I am not experienced in elisp at all so this "package" could be quite buggy.
-* Org mode allows the use of '-', '+' or '*' for plain lists. Please avoid using '*' in your zettelkasten to avoid bugs.
+* Org mode allows the use of '-', '+' or '\*' for plain lists. Please avoid using '\*' in your zettelkasten to avoid bugs.
 * The **CUSTOM_ID** property is both the unique zettelkasten identifier as well as a header for HTML export [(relevant blog post)](https://writequit.org/articles/emacs-org-mode-generate-ids.html).
 * I recommend adding a final **FIN** note at the end of your zettelkasten which can help with some bugs until your collection of notes grows large. As of now there is still a bug for linking with the very last note.
 
