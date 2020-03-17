@@ -1,7 +1,7 @@
 # zweihander
 A two-handed approach to note-taking.
 
-![zweihander.el](zweihander.png~raw=true "zweihander.el")
+![zweihander.el](zweihander.png?raw=true "zweihander.el")
 
 Small elisp package to extend org mode for use as a simple zettelkasten.
 
