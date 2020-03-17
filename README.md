@@ -72,7 +72,7 @@ There are only three functions added through this package currently:
 
 * **zweihander-link** >> create two-way link between headers
 * **zweihander-new-note** >> create a new note with its ID
-* **zweihander-child-note** >> create a new note which has a unique ID but shared all other properties of its parent
+* **zweihander-child-note** >> create a new note which has a unique ID but shares all other properties with its parent
 
 ### Built-in org mode functionality
 
@@ -85,7 +85,7 @@ Perhaps in the future I'll add a terse guide to org mode features particularly r
 * I am not experienced in elisp at all so this "package" could be quite buggy.
 * Org mode allows the use of '-', '+' or '\*' for plain lists. Please avoid using '\*' in your zettelkasten to avoid bugs.
 * The **CUSTOM_ID** property is both the unique zettelkasten identifier as well as a header for HTML export [(relevant blog post)](https://writequit.org/articles/emacs-org-mode-generate-ids.html).
-* I recommend adding a final **FIN** note at the end of your zettelkasten which can help with some bugs until your collection of notes grows large. As of now there is still a bug for linking with the very last note.
+* **FIXED ** I recommend adding a final **FIN** note at the end of your zettelkasten which can help with some bugs until your collection of notes grows large. As of now there is still a bug for linking with the very last note.
 
 ## How to setup
 

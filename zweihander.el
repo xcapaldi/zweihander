@@ -42,92 +42,89 @@
   (save-excursion ; save current location
     (call-interactively 'org-store-link)
     (counsel-org-goto)
-    (org-next-visible-heading 1)
-    (previous-line)
+    (end-of-line)
+    (if (eq (search-forward "* " nil t) nil) ; if there isn't another header past this point
+	(progn
+	  (goto-char (point-max))
+	  (newline))
+      (org-next-visible-heading 1)
+      (previous-line))
     (org-insert-last-stored-link 1)
     (call-interactively 'org-store-link))
   (org-insert-last-stored-link 1) ; go back to original location and insert link
- )
+  )
 
 (defun zweihander-new-note()
-  "Insert a new note with a unique title.
-   Note that there is a small bug in this code.
-   If you want to name a note something that is the subset of the title of another note,
-   it will throw an error and not allow the note's creation."
+  "Insert a new note with a unique title."
   (interactive) ; allow user to call function
   (setq note_title (read-string "Enter note title:")) ; prompt for a new note title
-  (push-mark) ; record our current position
-  (goto-line 1) ; jump to the first line of the document
-  (search-forward (concat "* " note_title) nil t) 
-  (if (not (eq (search-forward (concat "* " note_title) nil t) nil)) ; if that note title is found in the body
-      (progn ; allow the evaluation of more than one sexp for the true case
-	(message "That note title already exists!")
-	(pop-to-mark-command)) ; return to starting position
-    (pop-to-mark-command) ; else, return to starting position
-    (org-next-visible-heading 1)
-    (newline)
-    (previous-line)
-    (org-insert-heading)
-    (insert note_title) ; and insert the new note title
-    (newline)
-    (insert ":PROPERTIES:")
-    (newline)
-    (insert ":CUSTOM_ID: ")
-    (insert (concat "z" (replace-regexp-in-string ":" "" (format-time-string "%Y-%m-%d-%T"))))
-    ;(org-time-stamp '(16) t) ; we need two universal prefix arguments for the convenient date-time
-    (newline)
-    (insert ":END:")
-    (newline)
-  )
+  ;(push-mark) ; record our current position
+  ;(goto-line 1) ; jump to the first line of the document
+  ;(search-forward (concat "* " note_title) nil t) 
+  ;(if (not (eq (search-forward (concat "* " note_title) nil t) nil)) ; if that note title is found in the body
+      ;(progn ; allow the evaluation of more than one sexp for the true case
+	;(message "That note title already exists!")
+	;(pop-to-mark-command)) ; return to starting position
+	;(pop-to-mark-command) ; else, return to starting position
+  (org-next-visible-heading 1)
+  (newline)
+  (previous-line)
+  (org-insert-heading)
+  (insert note_title) ; and insert the new note title
+  (newline)
+  (insert ":PROPERTIES:")
+  (newline)
+  (insert ":CUSTOM_ID: ")
+  (insert (concat "z" (replace-regexp-in-string ":" "" (format-time-string "%Y-%m-%d-%T"))))
+  ;(org-time-stamp '(16) t) ; we need two universal prefix arguments for the convenient date-time
+  (newline)
+  (insert ":END:")
+  (newline)
   )
 
 (defun zweihander-child-note()
   "Insert a new note with a unique title.
-   Pull all the same properties from the previous note except the ID.
-   Note that there is a small bug in this code.
-   If you want to name a note something that is the subset of the title of another note,
-   it will throw an error and not allow the note's creation."
+   Pull all the same properties from the previous note except the ID."
   (interactive) ; allow user to call function
   (setq note_title (read-string "Enter note title:")) ; prompt for a new note title
-  (push-mark) ; record our current position
-  (goto-line 1) ; jump to the first line of the document
-  (search-forward (concat "* " note_title) nil t) 
-  (if (not (eq (search-forward (concat "* " note_title) nil t) nil)) ; if that note title is found in the body
-      (progn ; allow the evaluation of more than one sexp for the true case
-	(message "That note title already exists!")
-	(pop-to-mark-command)) ; return to starting position
-    (pop-to-mark-command) ; else, return to starting position
-    ;; we need to decide if we are inside a note or at the head
-    ;; first let's take the current line and narrow it
-    (beginning-of-line)
-    (push-mark)
-    (end-of-line)
-    (narrow-to-region (region-beginning) (region-end))
-    (if (eq (search-backward "* " nil t) nil) ; if * not found
-	(progn
-	  (widen)
-	  (org-previous-visible-heading 1)) ; go the previous header which should be the header for the current note
-      (widen)) ; otherwise just widen the region
-    (next-line)
-    (next-line)
-    (next-line)
-    (beginning-of-line)
-    (push-mark)
-    (search-forward ":END:")
-    (copy-region-as-kill (region-beginning) (region-end))
-    (org-next-visible-heading 1)
-    (newline)
-    (previous-line)
-    (org-insert-heading)
-    (insert note_title) ; and insert the new note title
-    (newline)
-    (insert ":PROPERTIES:")
-    (newline)
-    (insert ":CUSTOM_ID: ")
-    (insert (concat "z" (replace-regexp-in-string ":" "" (format-time-string "%Y-%m-%d-%T"))))
-    ;(org-time-stamp '(16) t) ; we need two universal prefix arguments for the convenient date-time
-    (newline)
-    (yank)
-    (newline)
-  )
+  ;(push-mark) ; record our current position
+  ;(goto-line 1) ; jump to the first line of the document
+  ;(search-forward (concat "* " note_title) nil t) 
+  ;(if (not (eq (search-forward (concat "* " note_title) nil t) nil)) ; if that note title is found in the body
+      ;(progn ; allow the evaluation of more than one sexp for the true case
+	;(message "That note title already exists!")
+	;(pop-to-mark-command)) ; return to starting position
+	;(pop-to-mark-command) ; else, return to starting position
+  ;; we need to decide if we are inside a note or at the head
+  ;; first let's take the current line and narrow it
+  (beginning-of-line)
+  (push-mark)
+  (end-of-line)
+  (narrow-to-region (region-beginning) (region-end))
+  (if (eq (search-backward "* " nil t) nil) ; if * not found
+      (progn
+	(widen)
+	(org-previous-visible-heading 1)) ; go the previous header which should be the header for the current note
+    (widen)) ; otherwise just widen the region
+  (next-line)
+  (next-line)
+  (next-line)
+  (beginning-of-line)
+  (push-mark)
+  (search-forward ":END:")
+  (copy-region-as-kill (region-beginning) (region-end))
+  (org-next-visible-heading 1)
+  (newline)
+  (previous-line)
+  (org-insert-heading)
+  (insert note_title) ; and insert the new note title
+  (newline)
+  (insert ":PROPERTIES:")
+  (newline)
+  (insert ":CUSTOM_ID: ")
+  (insert (concat "z" (replace-regexp-in-string ":" "" (format-time-string "%Y-%m-%d-%T"))))
+  ;(org-time-stamp '(16) t) ; we need two universal prefix arguments for the convenient date-time
+  (newline)
+  (yank)
+  (newline)
   )
