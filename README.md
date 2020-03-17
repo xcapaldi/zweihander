@@ -103,15 +103,15 @@ Download the zweihander.el file.
 Load the package by adding it to your load path and requiring it:
 
 ```
-(add-to-list 'load-path "~/path/to/folder/")
+(add-to-list 'load-path "/path/to/folder/")
 (require 'zweihander)
 ```
 
 Alternatively, use use-package:
 
 ```
-(add-to-list 'load-path "~/path/to/folder/")
 (use-package zweihander
   :pin manual ;; manually update
+  :load-path "/path/to/folder/"
   :hook org-mode)
 ```
