@@ -36,6 +36,12 @@
 
 (require 'swiper)
 
+(defgroup zweihander nil
+  "Minor mode for implementing zettelkasten in org-mode"
+  :prefix "zweihander-"
+  :group 'text
+  :link '(url-link "https://github.com/xcapaldi/zweihander"))
+
 (defun zweihander-link ()
   "Add two-way links between two notes in zettelkasten."
   (interactive)
@@ -128,3 +134,5 @@
   (yank)
   (newline)
   )
+
+(provide 'zweihander)
